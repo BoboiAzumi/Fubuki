@@ -1,13 +1,10 @@
 import { Hono, type Context } from "hono"
 import { serve } from "bun"
-import { readDir } from "./service/FileSystem"
+import { fileSystemRouter } from "./routes/file-system"
 
 const hono = new Hono()
 
-hono.get("/", (c: Context) => {
-    readDir(".")
-    return c.text("OK")
-})
+hono.route('/api/v1/filesystem', fileSystemRouter)
 
 serve({
     fetch: hono.fetch,
