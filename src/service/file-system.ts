@@ -53,3 +53,8 @@ export function remove(path: string){
         fs.rmdirSync(path)
     }
 }
+
+export function writeUpload(path: string, arrayBuffer: ArrayBuffer){
+    const buffer = Buffer.from(arrayBuffer)
+    fs.createWriteStream(path).write(buffer)
+}
