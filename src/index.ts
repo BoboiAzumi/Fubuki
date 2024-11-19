@@ -1,4 +1,4 @@
-import { Hono, type Context } from "hono"
+import { Hono } from "hono"
 import { serve } from "bun"
 import { fileSystemRouter } from "./routes/file-system"
 
