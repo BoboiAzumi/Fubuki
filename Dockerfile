@@ -9,6 +9,8 @@ RUN bun install
 
 COPY . .
 
+RUN mkdir ./storage
+
 EXPOSE 2000
 
 CMD [ "bun", "start" ]
