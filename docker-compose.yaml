@@ -6,6 +6,6 @@ services:
       - /mnt/storage:/app/storage
 
     ports:
-      - 2000
+      - "2000:2000"
     
     tty: true
