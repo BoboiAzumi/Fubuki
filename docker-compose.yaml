@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    image: fubuki:1.0
+    volumes:
+      - /mnt/storage:/app/storage
+
+    ports:
+      - "2000:2000"
+    
+    tty: true
