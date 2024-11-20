@@ -9,9 +9,9 @@ RUN bun install
 
 COPY . .
 
-RUN mkdir ./storage
-RUN mkdir ./storage/filesystem
-RUN mkdir ./storage/media
+RUN mkdir /app/storage
+RUN mkdir /app/storage/filesystem
+RUN mkdir /app/storage/media
 
 EXPOSE 2000
 
