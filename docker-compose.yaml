@@ -7,5 +7,10 @@ services:
 
     ports:
       - "2000:2000"
-    
+
     tty: true
+
+    deploy:
+      resources:
+        limits:
+          memory: 300M
