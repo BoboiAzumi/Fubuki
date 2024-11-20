@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Upload File with Fetch</title>
+    </head>
+    <body>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" />
+            <button type="submit">Upload</button>
+        </form>
+        <progress
+            id="progressBar"
+            value="0"
+            style="width: 100%"
+        ></progress>
+        <div id="status"></div>
+
+        <script>
+            const uploadForm = document.getElementById('uploadForm');
+            const fileInput = document.getElementById('fileInput');
+            const progressBar = document.getElementById('progressBar');
+            const statusDiv = document.getElementById('status');
+
+			async function uploadChunk(file, size = 50 * 1024 * 1024){
+				const totalChunk = Math.ceil(file.size / size)
+
+				progressBar.setAttribute('max', totalChunk)
+				
+				for(let i = 0; i < totalChunk; i++){
+					const formData = new FormData()
+					const chunk = file.slice(i * size, (i + 1) * size)
+					formData.append('files', chunk)
+					formData.append('type', 'chunk')
+					formData.append('filename', file.name)
+					formData.append('target', '')
+					
+					if(i == 0){
+						formData.append('isChunkStart', true)
+					}
+
+					await fetch('/api/v1/filesystem/chunk', {
+						method: "POST",
+						body: formData
+					})
+
+					progressBar.setAttribute('value', i + 1)
+				}
+			}
+
+            uploadForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+				const file = fileInput.files[0]
+
+				if(file){
+					await uploadChunk(file)
+				}
+            });
+        </script>
+    </body>
+</html>

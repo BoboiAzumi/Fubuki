@@ -12,7 +12,9 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@types/mime-types": "^2.1.4",
     "dotenv": "^16.4.5",
-    "hono": "^4.6.9"
+    "hono": "^4.6.9",
+    "mime-types": "^2.1.35"
   }
 }

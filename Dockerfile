@@ -10,6 +10,8 @@ RUN bun install
 COPY . .
 
 RUN mkdir ./storage
+RUN mkdir ./storage/filesystem
+RUN mkdir ./storage/media
 
 EXPOSE 2000
 
