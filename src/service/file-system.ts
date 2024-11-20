@@ -1,6 +1,7 @@
 import fs from "fs"
 import type { FileSystemTypes } from "../types/file-system"
 import _path from "path"
+import mime from "mime-types"
 
 export function list(path: string): FileSystemTypes[]{
     const files = fs.readdirSync(path, {withFileTypes: true})
@@ -54,7 +55,35 @@ export function remove(path: string){
     }
 }
 
-export function writeUpload(path: string, arrayBuffer: ArrayBuffer){
+export function writeUpload(path: string, arrayBuffer: ArrayBuffer, type: string = "full", isChunkStart: boolean = false){
     const buffer = Buffer.from(arrayBuffer)
-    fs.createWriteStream(path).write(buffer)
+    if(type=="full"){
+        fs.createWriteStream(path).write(buffer)
+    }
+    else if(type=="chunk"){
+        if(isChunkStart){
+            fs.createWriteStream(path).write(buffer)
+            return
+        }
+        fs.appendFileSync(path, buffer as any)
+    }
+    else{
+        return
+    }
+}
+
+export function getFile(path: string){
+    try{
+        if(!fs.statSync(path).isFile()){
+            return false
+        }
+    }
+    catch{
+        return false
+    }
+
+    return {
+        buffer: fs.readFileSync(path),
+        mime: mime.lookup(path)
+    }
 }
