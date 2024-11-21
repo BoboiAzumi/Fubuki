@@ -8,8 +8,4 @@ services:
       - "2000:2000"
     tty: true
     mem_limit: 300M
-
-networks:
-  default:
-    driver: bridge
-    external: true
+    network_mode: bridge
