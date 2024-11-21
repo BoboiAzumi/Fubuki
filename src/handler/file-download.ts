@@ -18,7 +18,8 @@ export async function fileDownload(c: Context) {
         })
     }
 
-    c.header('Content-Type', file.mime as any)
+    c.header('Content-Type', 'application/octet-stream')
+    c.header('Content-Disposition', `attachment; filename="${file.filename}"; mime="${file.mime}"`)
 
     return c.body(file.buffer as any)
 

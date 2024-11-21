@@ -82,8 +82,11 @@ export function getFile(path: string){
         return false
     }
 
+    const filename = path.split(/(\/)|(\\\\)/)
+
     return {
-        buffer: fs.readFileSync(path),
-        mime: mime.lookup(path)
+        buffer: fs.createReadStream(path),
+        mime: mime.lookup(path),
+        filename: filename[filename.length - 1]
     }
 }
