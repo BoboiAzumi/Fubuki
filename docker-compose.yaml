@@ -14,3 +14,8 @@ services:
       resources:
         limits:
           memory: 300M
+
+networks:
+  default:
+    driver: bridge
+    external: true
