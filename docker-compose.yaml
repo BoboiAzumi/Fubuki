@@ -7,5 +7,7 @@ services:
     ports:
       - "2000:2000"
     tty: true
-    mem_limit: 300M
+    mem_limit: 800M
+    restart: on-failure
+    cpu_count: 2
     network_mode: bridge
