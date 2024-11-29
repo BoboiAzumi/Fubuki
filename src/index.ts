@@ -16,8 +16,8 @@ hono.get('/', async (c: Context) => {
     return c.html(fs.readFileSync('./views/index.html').toString())
 })
 hono.route('/api/v1/filesystem', fileSystemRouter)
+hono.route('/api/v1/media', mediaRouter)
 hono.route('/file', managerRouter)
-hono.route('/media', mediaRouter)
 hono.get('/embed', async (c: Context) => {
     const path = `/file${c.req.query('path')}`
     return c.html(ejs.renderFile('./views/embed.ejs', {path}))
